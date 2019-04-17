@@ -1,0 +1,52 @@
+rng(420);
+k = 5
+N = 500
+
+tight_data = randi([0,2000], N, 2);
+med_data = randi([2000,5000], N, 2);
+loose_data = randi([5000,10000], N, 2);
+data = [tight_data;med_data;loose_data];
+
+kmeans_labels = k_means(data, k);
+spectral_labels = spectral(data, k);
+
+figure(1)
+scatter(data(:,1), data(:,2),[],kmeans_labels, 'filled')
+title('K-means clustering')
+
+figure(2)
+scatter(data(:,1), data(:,2),[],spectral_labels, 'filled')
+title('Spectral clustering')
+
+data = [];
+for i = 1:k
+    randint = randi([1,1000],1);
+	data = [data;randi([randint, randint+1000], N, 2)];
+end
+figure(3)
+kmeans_labels = k_means(data, k);
+scatter(data(:,1), data(:,2),[],kmeans_labels, 'filled')
+title('K-means clustering')
+
+figure(4)
+spectral_labels = spectral(data, k);
+scatter(data(:,1), data(:,2),[],spectral_labels, 'filled')
+title('Spectral clustering')
+
+data = []
+for i = 1:k
+    randint = randi([1,1000],1);
+    theta = linspace(0., 2*pi);
+    x = sin(theta)*randint;
+    y = cos(theta)*randint;
+	data = [data;[x' y']];
+end
+figure(5)
+kmeans_labels = k_means(data, k);
+scatter(data(:,1), data(:,2),[],kmeans_labels, 'filled')
+title('K-means clustering')
+
+figure(6)
+spectral_labels = spectral(data, k);
+scatter(data(:,1), data(:,2),[],spectral_labels, 'filled')
+title('Spectral clustering')
